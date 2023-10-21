@@ -10,17 +10,16 @@ import { Entypo, Ionicons } from "@expo/vector-icons";
 import SearshHeader from "./SearshHeader";
 import BottomSheetMod from "../BottomSheat/BottomSheetMod";
 
-const CustomeHeader = () => {
+const CustomeHeader = ({ navigation }) => {
   const bottomSheetRef = useRef(null);
 
   const openModel = useCallback(() => {
     bottomSheetRef.current?.present();
   }, []);
 
-
   return (
     <View style={{ height: 100, backgroundColor: "white" }}>
-      <BottomSheetMod  ref={bottomSheetRef}/>
+      <BottomSheetMod ref={bottomSheetRef} />
       <SafeAreaView>
         <View className="flex-row justify-between items-center px-4">
           <View className="flex-row items-center">

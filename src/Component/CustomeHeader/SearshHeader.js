@@ -1,8 +1,15 @@
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import React from "react";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/core";
 
 const SearshHeader = () => {
+  const navigation = useNavigation();
+
+  const openModel = () => {
+    navigation.navigate("MyModal");
+  };
+
   return (
     <View
       className="flex-row justify-between px-4 items-center"
@@ -21,7 +28,7 @@ const SearshHeader = () => {
           style={{ width: 260 }}
         />
       </View>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={openModel}>
         <Ionicons name="options-outline" size={25} color={"#20E1B2"} />
       </TouchableOpacity>
     </View>

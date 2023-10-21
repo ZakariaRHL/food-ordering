@@ -2,9 +2,11 @@ import { BottomSheetBackdrop, BottomSheetModal } from "@gorhom/bottom-sheet";
 import React, { forwardRef, useCallback, useMemo, useRef } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { EvilIcons, AntDesign, Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const BottomSheetMod = forwardRef((props, ref) => {
   const snapPoints = useMemo(() => ["50%"], []);
+  const navigation = useNavigation();
 
   const modelClose = useCallback(() => {
     ref.current?.close();
@@ -45,7 +47,10 @@ const BottomSheetMod = forwardRef((props, ref) => {
       </View>
       <View>
         <Text className="text-lg font-bold mb-2 mt-2 p-2">Your Location</Text>
-        <TouchableOpacity className="w-full flex-row justify-between p-3 items-center bg-lightGrey border-y-2 border-gray-100">
+        <TouchableOpacity
+          className="w-full flex-row justify-between p-3 items-center bg-lightGrey border-y-2 border-gray-100"
+          onPress={() => navigation.navigate("Map")}
+        >
           <View className="flex-row items-center" style={{ gap: 20 }}>
             <EvilIcons name="location" size={30} color="black" />
             <Text>Location</Text>

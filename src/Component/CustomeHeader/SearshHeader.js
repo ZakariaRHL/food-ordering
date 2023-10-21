@@ -7,7 +7,7 @@ const SearshHeader = () => {
   const navigation = useNavigation();
 
   const openModel = () => {
-    navigation.navigate("MyModal");
+    navigation.navigate("Filter");
   };
 
   return (

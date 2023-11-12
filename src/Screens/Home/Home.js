@@ -1,11 +1,12 @@
-import { View, Text } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import React from "react";
+import Categories from "../../Component/Categories/Categories";
 
 const Home = () => {
   return (
-    <View className="bg-green-400">
-      <Text>Home</Text>
-    </View>
+    <ScrollView className="bg-green-400 flex-1" style={{ paddingTop: 50 }}>
+      <Categories />
+    </ScrollView>
   );
 };
 

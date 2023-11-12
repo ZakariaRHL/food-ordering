@@ -12,6 +12,11 @@ const BottomSheetMod = forwardRef((props, ref) => {
     ref.current?.close();
   }, []);
 
+  const goMap = () => {
+    modelClose();
+    navigation.navigate("Map");
+  };
+
   const renderBackDrop = useCallback((props) => {
     <BottomSheetBackdrop
       appearsOnIndex={0}
@@ -49,7 +54,7 @@ const BottomSheetMod = forwardRef((props, ref) => {
         <Text className="text-lg font-bold mb-2 mt-2 p-2">Your Location</Text>
         <TouchableOpacity
           className="w-full flex-row justify-between p-3 items-center bg-lightGrey border-y-2 border-gray-100"
-          onPress={() => navigation.navigate("Map")}
+          onPress={goMap}
         >
           <View className="flex-row items-center" style={{ gap: 20 }}>
             <EvilIcons name="location" size={30} color="black" />

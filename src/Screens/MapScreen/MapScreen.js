@@ -8,6 +8,7 @@ import MapView, {
 } from "react-native-maps";
 import { useNavigation } from "@react-navigation/native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import * as geolib from 'geolib';
 import * as Location from "expo-location";
 
 const MapScreen = () => {
@@ -17,12 +18,14 @@ const MapScreen = () => {
   const [errorMsg, setErrorMsg] = useState(null);
   const [isInside, setIsInside] = useState(false);
 
-  const casablancaPolygonCoordinates = [
-    { latitude: 33.5731, longitude: -7.5898 }, // Replace with accurate coordinates
-    { latitude: 33.5731, longitude: -7.5698 }, // Replace with accurate coordinates
-    { latitude: 33.5531, longitude: -7.5698 }, // Replace with accurate coordinates
-    { latitude: 33.5531, longitude: -7.5898 }, // Replace with accurate coordinates
+  const vertices = [
+    { latitude: 33.703, longitude: -7.364 },
+    { latitude: 33.702, longitude: -7.362 },
+    { latitude: 33.701, longitude: -7.361 },
+    { latitude: 33.700, longitude: -7.363 },
+    { latitude: 33.701, longitude: -7.365 },
   ];
+
 
   const goToMyLocation = async (location) => {
     if (mapRef.current) {
@@ -61,20 +64,27 @@ const MapScreen = () => {
   console.log("location", locationTest);
 
   const coordinate = new AnimatedRegion({
-    latitude: locationTest?.coords?.latitude || 0,
-    longitude: locationTest?.coords?.longitude || 0,
+    latitude: 33.70140000805669,
+    longitude: -7.36299999767183,
   });
 
   useEffect(() => {
     coordinate
       .timing({
-        latitude: locationTest?.coords?.latitude || 0,
-        longitude: locationTest?.coords?.longitude || 0,
+        latitude: 33.70140000805669,
+        longitude: -7.36299999767183,
         duration: 3000,
         useNativeDriver: false,
       })
       .start();
   }, [locationTest]);
+
+  useEffect(() => {
+    let center = geolib.getCenter(vertices)
+    let checkIfinside = geolib.isPointInPolygon(center, vertices)
+    console.log("checkIfinside", checkIfinside)
+    console.log("center", center)
+  },[])
 
   return (
     <View className="flex-1">
@@ -107,15 +117,16 @@ const MapScreen = () => {
         style={{ flex: 1 }}
         ref={mapRef}
         showsUserLocation={true}
+        // {"latitude": 33.701866334003874, "longitude": -7.361812491722766}
         initialRegion={{
-          latitude: locationTest ? locationTest.coords.latitude : 33.595063,
-          longitude: locationTest ? locationTest.coords.longitude : -7.618343,
+          latitude: 33.70140000805669,
+          longitude: -7.36299999767183,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
       >
         <Polygon
-          coordinates={casablancaPolygonCoordinates}
+          coordinates={vertices}
           fillColor="rgba(0, 200, 0, 0.5)"
           strokeWidth={2}
         />
